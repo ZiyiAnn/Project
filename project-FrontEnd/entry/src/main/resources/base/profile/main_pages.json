@@ -1,0 +1,25 @@
+{
+  "src": [
+    "pages/SplashScreenPage",
+    "pages/LoginPage",
+    "pages/MinePage",
+    "pages/RegistrationSuccessPage",
+    "pages/PrivacyPage",
+    "pages/CustomerServicePage",
+    "pages/ClassroomSelectPage",
+    "pages/ClassroomDetailPage",
+    "pages/AppointmentPage",
+    "pages/AppointmentSuccessPage",
+    "pages/AdministratorMainPage",
+    "pages/ClassroomManagementPage",
+    "pages/AppointmentManagementPage",
+    "pages/MessageManagementPage",
+    "pages/AddClassroomPage",
+    "pages/ApplyDealingPage",
+    "pages/AlredyDoPage",
+    "pages/AppointmentDetailPage",
+    "pages/DeleteClassroomPage",
+    "pages/UpdateStatusPage",
+    "pages/UpdateMessagePage"
+  ]
+}
