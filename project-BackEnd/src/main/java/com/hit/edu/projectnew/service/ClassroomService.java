@@ -2,6 +2,7 @@ package com.hit.edu.projectnew.service;
 
 import com.hit.edu.projectnew.pojo.classroom;
 import com.hit.edu.projectnew.pojo.reservation;
+import com.hit.edu.projectnew.pojo.timeTable;
 import org.springframework.data.relational.core.sql.In;
 
 import java.util.List;
@@ -23,4 +24,5 @@ public interface ClassroomService {
     public List<classroom> findClassroomsByConditions(Map<String, Object> conditions);
 
     public classroom findClassroomById(Integer CID);
+
 }

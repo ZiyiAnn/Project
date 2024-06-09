@@ -2,6 +2,7 @@ package com.hit.edu.projectnew.mapper;
 
 import com.hit.edu.projectnew.pojo.checklist;
 import com.hit.edu.projectnew.pojo.reservation;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Select;
@@ -26,4 +27,7 @@ public interface ReservationMapper {
 
     @Select("SELECT * from reservation WHERE dateTime=#{dateTime} AND CID=#{CID}")
     List<reservation> getReservationsByDateAndCID(LocalDate dateTime, Integer CID);
+
+    @Delete("DELETE FROM reservation WHERE CID = #{CID} AND occuStatus = 2")
+    void deleteReservationByCID(Integer CID);
 }

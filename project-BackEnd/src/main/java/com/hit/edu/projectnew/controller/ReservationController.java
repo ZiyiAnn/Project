@@ -2,6 +2,7 @@ package com.hit.edu.projectnew.controller;
 
 import com.hit.edu.projectnew.pojo.checklist;
 import com.hit.edu.projectnew.pojo.reservation;
+import com.hit.edu.projectnew.pojo.timeTable;
 import com.hit.edu.projectnew.service.ChecklistService;
 import com.hit.edu.projectnew.service.ReservationService;
 import com.hit.edu.projectnew.service.StudentService;
@@ -31,7 +32,7 @@ public class ReservationController {
 
     @RequestMapping("/reserveClassroom")
     @PostMapping
-    public Map<String, Object> reserveClassroom(@RequestBody Map<String, String> reservationInfo) throws ParseException {
+    public Map<String, Object> reserveClassroom(@RequestBody Map<String, String> reservationInfo) {
         Map<String, Object> response = new HashMap<>();
         Integer CID = Integer.parseInt(reservationInfo.get("CID"));
         Integer occuStatus = 1;
@@ -176,6 +177,110 @@ public class ReservationController {
         } catch (Exception e) {
             response.put("success", false);
             response.put("message", "Failed to fetch reservations: " + e.getMessage());
+        }
+        return response;
+    }
+    @GetMapping("/Schedule")
+    public Map<String, Object> classroomUpdateSchedule() {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            List<timeTable> timeTables = reservationService.getAllTimeTable();
+            for (timeTable table : timeTables) {
+                String schedule = table.getSchedule(); // 获取课表的字符串表示
+                int CID = table.getCID(); // 获取教室号
+                LocalDate dateTime = table.getDateTime();
+                for (int i = 0; i < schedule.length(); i++) {
+                    if (schedule.charAt(i) == '1') {
+                        // 如果当前时间段有课，则添加预约申请
+                        reservation newReservation = new reservation();
+                        newReservation.setCID(CID);
+                        newReservation.setOccuStatus(5); // 占用状态设为5
+                        newReservation.setOccuTime(i + 1); // 时间段为当前循环的索引加1
+                        newReservation.setReservations("Admin"); // 申请者先为空
+                        newReservation.setReason("class"); // 原因先为空
+                        newReservation.setType(5); // 类型设为5
+                        newReservation.setDateTime(dateTime);
+                        // 将新的预约申请添加到数据库中
+                        checklist newChecklist = new checklist();
+                        newChecklist.setCID(CID);
+                        newChecklist.setOccuTime(i+1);
+                        newChecklist.setReservations("Admin");
+                        newChecklist.setDateTime(dateTime);
+                        newChecklist.setCheckStatus(1);
+
+                       reservationService.addReservation(newReservation);
+                       checklistService.addChecklist(newChecklist);
+                    }
+                }
+            }
+            response.put("success", true);
+            response.put("message", "Reservations added successfully.");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to add reservations: " + e.getMessage());
+        }
+        return response;
+    }
+    @PutMapping("/classroomUpdateStatus")
+    public Map<String, Object> repairClassroom(@RequestBody Map<String, String> reservationInfo) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Integer CID = Integer.parseInt(reservationInfo.get("CID"));
+            Integer occuTime = Integer.parseInt(reservationInfo.get("occuTime"));
+            String dateString = reservationInfo.get("dateTime"); // 假设前端传递的日期字段名为 "date"
+            Integer status = Integer.parseInt(reservationInfo.get("status"));
+            LocalDate dateTime = LocalDate.parse(dateString);
+
+            reservation reservation = new reservation();
+            reservation.setCID(CID);
+            reservation.setDateTime(dateTime);
+            reservation.setReservations("Admin");
+            reservation.setOccuTime(occuTime);
+//
+//            checklist newChecklist = new checklist();
+//            newChecklist.setCID(CID);
+//            newChecklist.setOccuTime(occuTime);
+//            newChecklist.setReservations("Admin");
+//            newChecklist.setDateTime(dateTime);
+//            newChecklist.setCheckStatus(1);
+            // 首先将教室状态设置为空闲
+            if(status == 1){
+//                reservationService.updateClassroomStatus(CID, dateTime, occuTime, status);
+                // 然后删除对应的预约和审核记录
+                reservationService.deleteReservationByCID(CID);
+//                checklistService.deleteChecklistByCID(CID);
+                response.put("success", true);
+                response.put("message", "Classroom repair completed successfully.");
+            } else if (status == 2) {
+                reservation.setOccuStatus(2);
+                reservation.setType(2);
+                reservation.setReason("Repair");
+                reservationService.addReservation(reservation);
+//                checklistService.addChecklist(newChecklist);
+                response.put("success", true);
+                response.put("message", "Classroom repair registration.");
+            }else if (status == 5){
+                reservation.setOccuStatus(5);
+                reservation.setType(5);
+                reservation.setReason("Class");
+                reservationService.addReservation(reservation);
+//                checklistService.addChecklist(newChecklist);
+                response.put("success", true);
+                response.put("message", "Classroom class registration.");
+            } else if (status == 3) {
+                reservation.setOccuStatus(3);
+                reservation.setType(3);
+                reservation.setReason("Exam");
+                reservationService.addReservation(reservation);
+//                checklistService.addChecklist(newChecklist);
+                response.put("success", true);
+                response.put("message", "Classroom exam registration.");
+            }
+
+
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to repair classroom: " + e.getMessage());
         }
         return response;
     }

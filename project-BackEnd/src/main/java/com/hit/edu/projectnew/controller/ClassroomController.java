@@ -2,6 +2,7 @@ package com.hit.edu.projectnew.controller;
 
 import com.hit.edu.projectnew.pojo.classroom;
 import com.hit.edu.projectnew.pojo.reservation;
+import com.hit.edu.projectnew.pojo.timeTable;
 import com.hit.edu.projectnew.service.ClassroomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -62,70 +63,7 @@ public class ClassroomController {
         }
         return response;
     }
-//    @PutMapping("/classroomUpdate/{CID}")
-//    public Map<String, Object> updateClassroomStatus(@PathVariable int CID, @RequestBody Map<String, Object> updateInfo) {
-//        Map<String, Object> response = new HashMap<>();
-//
-////        // 检查用户是否登录，以及其身份是否为管理员
-////        User currentUser = (User) session.getAttribute("currentUser");
-////        if (currentUser == null || !currentUser.getRole().equals("admin")) {
-////            response.put("success", false);
-////            response.put("message", "Only administrators can update classroom status");
-////            return response;
-////        }
-//
-//        // 获取更新信息
-//        boolean status = (boolean) updateInfo.get("status");
-//
-//        try {
-//            // 更新教室状态
-//            classroomService.updateClassroomStatus(CID, status);
-//            response.put("success", true);
-//            response.put("message", "Classroom status updated successfully");
-//            response.put("CID", CID);
-//        } catch (Exception e) {
-//            response.put("success", false);
-//            response.put("message", e.getMessage());
-//        }
-//        return response;
-//
-//    }
-    // 更新classroom信息的方法
-//    @RequestMapping("/classroomUpdate")
-//    @PostMapping
-//    public Map<String, Object> updateClassroom(@RequestBody Map<String, String> classroomInfo) {
-//        Map<String, Object> response = new HashMap<>();
-//        Integer CID = Integer.parseInt(classroomInfo.get("CID"));
-//        Integer content = Integer.parseInt(classroomInfo.get("content"));
-//        String building = classroomInfo.get("building");
-//        Integer campus = Integer.parseInt(classroomInfo.get("campus"));
-//        String equipment = classroomInfo.get("equipment");
-//
-//        classroom classroom = new classroom();
-//        classroom.setCID(CID);
-//        classroom.setContent(content);
-//        classroom.setBuilding(building);
-//        classroom.setCampus(campus);
-//        classroom.setEquipment(equipment);
-//
-//        boolean exists = classroomService.checkClassroomExists(CID);
-//        if (!exists) {
-//            response.put("success", false);
-//            response.put("message", "Classroom with CID " + CID + " does not exist.");
-//            return response;
-//        }
-//
-//        try {
-//            classroomService.updataClassroom(classroom);
-//            response.put("success", true);
-//            response.put("message", "Classroom updated successfully.");
-//        } catch (Exception e) {
-//            response.put("success", false);
-//            response.put("message", "Failed to update classroom.");
-//        }
-//
-//        return response;
-//    }
+
     @PostMapping("/classroomUpdate")
     public Map<String, Object> updateClassroom(@RequestBody Map<String, String> classroomInfo) {
         Map<String, Object> response = new HashMap<>();
@@ -183,5 +121,18 @@ public class ClassroomController {
         }
         return response;
     }
-
+//    @GetMapping("/schedule")
+//    public Map<String, Object> classroomUpdateSchedule(){
+//        Map<String, Object> response = new HashMap<>();
+//        try {
+//            List<timeTable> timeTables = classroomService.getAllTimeTable();
+//
+//            response.put("success", true);
+//            response.put("classrooms", classrooms);
+//        } catch (Exception e) {
+//            response.put("success", false);
+//            response.put("message", "Failed to find classrooms: " + e.getMessage());
+//        }
+//        return response;
+//    }
 }

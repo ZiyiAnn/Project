@@ -20,4 +20,9 @@ public class ChecklistServiceImpl implements ChecklistService{
     public void updateChecklist(checklist checklist) {
         checklistMapper.updateCHecklist(checklist);
     }
+
+    @Override
+    public void deleteChecklistByCID(Integer CID) {
+        checklistMapper.deleteChecklistByCID(CID);
+    }
 }
