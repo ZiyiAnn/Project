@@ -1,0 +1,132 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "这是用来进行教室查询和预约的app"
+    },
+    {
+      "name": "ability_desc",
+      "value": "包含教室查询，预约，审核及消息提醒等功能"
+    },
+    {
+      "name": "ability_label",
+      "value": "HIT-教室预约系统"
+    },
+    {
+      "name": "copyright",
+      "value": "版权所有 @哈尔滨工业大学-魏伊辰/玄颖昕/李亚棋"
+    },
+    {
+      "name": "skip",
+      "value": "跳过 %d"
+    },
+    {
+      "name": "copyright_title",
+      "value": "HIT--教室预约系统"
+    },
+    {
+      "name": "title",
+      "value": "用户登陆"
+    },
+    {
+      "name": "forgettitle",
+      "value": "忘记密码"
+    },
+    {
+      "name": "username",
+      "value": "手机号/邮箱地址/账号名"
+    },
+    {
+      "name": "password",
+      "value": "密码"
+    },
+    {
+      "name": "login",
+      "value": "登录"
+    },
+    {
+      "name": "register",
+      "value": "忘记密码"
+    },
+    {
+      "name": "register_success_text",
+      "value": "官网密码重置"
+    },
+    {
+      "name": "appointment_success_text",
+      "value": "预约申请提交成功"
+    },
+    {
+      "name": "apponitmenttitle",
+      "value": "预约申请"
+    },
+    {
+      "name": "jump_mine_page_text",
+      "value": "点击跳转到官网"
+    },
+    {
+      "name": "wait",
+      "value": "请等待管理员审核"
+    },
+    {
+      "name": "problem_encountered",
+      "value": "遇见问题"
+    },
+    {
+      "name": "privacy_statement",
+      "value": "隐私声明"
+    },
+    {
+      "name": "mine_page_title",
+      "value": "我的"
+    },
+    {
+      "name": "user_nickname",
+      "value": "韩梅梅"
+    },
+    {
+      "name": "component_list_item_text",
+      "value": "标题%d"
+    },
+    {
+      "name": "service_hotline",
+      "value": "客服热线"
+    },
+    {
+      "name": "email",
+      "value": "官方邮箱"
+    },
+    {
+      "name": "hotline_number",
+      "value": "12xxx"
+    },
+    {
+      "name": "email_address",
+      "value": "xxx@yyy.com"
+    },
+    {
+      "name": "contact_customer_service",
+      "value": "联系客服"
+    },
+    {
+      "name": "list_item_text",
+      "value": "分类%d"
+    },
+    {
+      "name": "tab_text",
+      "value": "页签"
+    },
+    {
+      "name": "detail_list_item_text",
+      "value": "子标题"
+    },
+    {
+      "name": "grid_item_text",
+      "value": "子类"
+    },
+    {
+      "name": "sub_title",
+      "value": "子标题"
+    }
+  ]
+}
