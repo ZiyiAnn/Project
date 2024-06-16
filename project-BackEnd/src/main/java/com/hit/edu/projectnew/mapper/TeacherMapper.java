@@ -5,6 +5,7 @@ import com.hit.edu.projectnew.dto.User;
 import com.hit.edu.projectnew.pojo.teacher;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -37,4 +38,9 @@ public interface TeacherMapper {
             }}.toString();
         }
     }
+    @Update("UPDATE teacher SET code = #{newPassword} WHERE TID = #{id}")
+    void updatePassword(@Param("id") String id, @Param("newPassword") String newPassword);
+
+    @Select("SELECT email from teacher WHERE TID=#{ID}")
+    String getEmail(String ID);
 }

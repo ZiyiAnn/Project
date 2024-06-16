@@ -7,6 +7,7 @@ import com.hit.edu.projectnew.pojo.classroom;
 import com.hit.edu.projectnew.pojo.student;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.UpdateProvider;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -39,4 +40,9 @@ public interface StudentMapper {
             }}.toString();
         }
     }
+    @Update("UPDATE student SET code = #{newPassword} WHERE SID = #{id}")
+    void updatePassword(@Param("id") String id, @Param("newPassword") String newPassword);
+
+    @Select("SELECT email from student WHERE SID=#{ID}")
+    String getEmail(String ID);
 }

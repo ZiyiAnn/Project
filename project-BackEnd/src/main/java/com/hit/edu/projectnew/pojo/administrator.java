@@ -1,7 +1,7 @@
 package com.hit.edu.projectnew.pojo;
 
 public class administrator {
-    private Integer AID;
+    private String AID;
     private Long telephone;
     private String name;
     private String code;
@@ -10,7 +10,7 @@ public class administrator {
     public administrator() {
     }
 
-    public administrator(Integer AID, Long telephone, String name, String code, String email) {
+    public administrator(String AID, Long telephone, String name, String code, String email) {
         this.AID = AID;
         this.telephone = telephone;
         this.name = name;
@@ -18,11 +18,11 @@ public class administrator {
         this.email = email;
     }
 
-    public Integer getAID() {
+    public String getAID() {
         return AID;
     }
 
-    public void setAID(Integer AID) {
+    public void setAID(String AID) {
         this.AID = AID;
     }
 
