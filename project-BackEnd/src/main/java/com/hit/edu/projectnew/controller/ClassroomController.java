@@ -1,12 +1,20 @@
 package com.hit.edu.projectnew.controller;
 
 import com.hit.edu.projectnew.pojo.classroom;
+import com.hit.edu.projectnew.pojo.photo;
 import com.hit.edu.projectnew.pojo.reservation;
 import com.hit.edu.projectnew.pojo.timeTable;
 import com.hit.edu.projectnew.service.ClassroomService;
+import com.hit.edu.projectnew.service.PhotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -122,18 +130,33 @@ public class ClassroomController {
         }
         return response;
     }
-//    @GetMapping("/schedule")
-//    public Map<String, Object> classroomUpdateSchedule(){
-//        Map<String, Object> response = new HashMap<>();
-//        try {
-//            List<timeTable> timeTables = classroomService.getAllTimeTable();
-//
-//            response.put("success", true);
-//            response.put("classrooms", classrooms);
-//        } catch (Exception e) {
-//            response.put("success", false);
-//            response.put("message", "Failed to find classrooms: " + e.getMessage());
-//        }
-//        return response;
-//    }
+    @Autowired
+    private PhotoService photoService;
+
+    @PostMapping("/uploadPhoto")
+    public Map<String, Object> uploadPhoto(@RequestParam("file") MultipartFile file, @RequestParam("CID") Integer CID) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            photoService.savePhoto(file, CID);
+            response.put("success", true);
+            response.put("message", "Photo uploaded successfully");
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to upload photo"+e.getMessage());
+        }
+        return response;
+    }
+
+    @GetMapping("/getPhoto")
+    public ResponseEntity<byte[]> getPhoto(@RequestParam Integer CID) {
+        photo photo = photoService.getPhoto(CID);
+        if (photo != null) {
+            return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + photo.getFileName() + "\"")
+                .body(photo.getPhotoData());
+        } else {
+            return ResponseEntity.status(404).body(null);
+        }
+    }
 }
