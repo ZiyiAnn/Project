@@ -80,7 +80,7 @@ public class ClassroomController {
             if (classroomInfo.containsKey("content")) {
                 String contentValue = classroomInfo.get("content");
                 if (!contentValue.isEmpty()) {
-                    existingClassroom.setCampus(Integer.parseInt(contentValue));
+                    existingClassroom.setContent(Integer.parseInt(contentValue));
                 }
             }
             if (classroomInfo.containsKey("building") && classroomInfo.get("building")!="") {
@@ -108,9 +108,10 @@ public class ClassroomController {
         return response;
     }
 
-    @GetMapping("/classroomSelect")
-    public Map<String, Object> findClassrooms(@RequestParam Map<String, Object> classroomInfo) {
+    @PostMapping("/classroomSelect")
+    public Map<String, Object> findClassrooms(@RequestBody Map<String, Object> classroomInfo) {
         Map<String, Object> response = new HashMap<>();
+        System.out.println(classroomInfo);
         try {
             List<classroom> classrooms = classroomService.findClassroomsByConditions(classroomInfo);
             response.put("success", true);

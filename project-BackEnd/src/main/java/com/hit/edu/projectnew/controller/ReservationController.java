@@ -1,5 +1,6 @@
 package com.hit.edu.projectnew.controller;
 
+import com.hit.edu.projectnew.dto.Reservecheck;
 import com.hit.edu.projectnew.pojo.checklist;
 import com.hit.edu.projectnew.pojo.reservation;
 import com.hit.edu.projectnew.pojo.timeTable;
@@ -285,4 +286,48 @@ public class ReservationController {
         return response;
     }
 
+    @GetMapping("/checkUserReservations")
+    public Map<String, Object> getUserReservations(@RequestParam String ID) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            List<Reservecheck> reservations = reservationService.getUserReservations(ID);
+            response.put("success", true);
+            response.put("reservations", reservations);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to fetch reservations: " + e.getMessage());
+        }
+        return response;
+    }
+    @PostMapping("/deleteUserReservations")
+    public Map<String, Object> deleteUserReservations(@RequestBody Map<String, String> reservationInfo) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            Integer CID = Integer.parseInt(reservationInfo.get("CID"));
+            Integer occuTime = Integer.parseInt(reservationInfo.get("occuTime"));
+            String dateString = reservationInfo.get("dateTime");
+            LocalDate dateTime = LocalDate.parse(dateString);
+            String reservations = reservationInfo.get("reservations");
+
+            reservation reservation = new reservation();
+            reservation.setCID(CID);
+            reservation.setDateTime(dateTime);
+            reservation.setOccuTime(occuTime);
+            reservation.setReservations(reservations);
+
+            checklist checklist = new checklist();
+            checklist.setCID(CID);
+            checklist.setDateTime(dateTime);
+            checklist.setOccuTime(occuTime);
+            checklist.setReservations(reservations);
+            reservationService.deleteReservation(reservation);
+            checklistService.deleteChecklist(checklist);
+            response.put("success", true);
+            response.put("reservations", reservation);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Failed to fetch reservation: " + e.getMessage());
+        }
+        return response;
+    }
 }

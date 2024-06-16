@@ -69,7 +69,7 @@ public interface ClassroomMapper {
 
     class ClassroomSqlProvider {
         public String selectByConditions(Map<String, Object> conditions) {
-            return new SQL() {{
+            String sql = new SQL() {{
 //                SELECT("*");
 //                FROM("classroom");
 //                if (conditions.get("CID") != null) {
@@ -87,6 +87,7 @@ public interface ClassroomMapper {
                 SELECT("c.*"); // Assuming you want all fields from classroom
                 FROM("classroom c");
                 LEFT_OUTER_JOIN("reservation r ON c.CID = r.CID");
+
 
                 if (conditions.get("CID") != null) {
                     WHERE("c.CID = #{CID}");
@@ -109,7 +110,11 @@ public interface ClassroomMapper {
                 if (conditions.get("occuStatus") != null) {
                     WHERE("r.occuStatus = #{occuStatus}");
                 }
+                if (conditions.get("equipment") != null) {
+                    WHERE("c.equipment = #{equipment}");
+                }
             }}.toString();
+            return sql;
         }
     }
 

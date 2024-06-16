@@ -15,4 +15,7 @@ public interface ChecklistMapper {
 
     @Delete("DELETE FROM checklist WHERE CID = #{CID} ")
     void deleteChecklistByCID(Integer CID);
+
+    @Delete("DELETE FROM checklist WHERE CID=#{CID} and occuTime=#{occuTime} and dateTime=#{dateTime} and reservations=#{reservations} ")
+    void deleteChecklist(checklist checklist);
 }

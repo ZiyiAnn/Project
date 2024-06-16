@@ -9,4 +9,5 @@ public interface ChecklistService {
     public void addChecklist(checklist checklist);
     public void updateChecklist(checklist checklist);
     public void deleteChecklistByCID(Integer CID);
+    public void deleteChecklist(checklist checklist);
 }

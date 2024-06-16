@@ -1,5 +1,6 @@
 package com.hit.edu.projectnew.service;
 
+import com.hit.edu.projectnew.dto.Reservecheck;
 import com.hit.edu.projectnew.mapper.ReservationMapper;
 import com.hit.edu.projectnew.mapper.timeTableMapper;
 import com.hit.edu.projectnew.pojo.checklist;
@@ -16,6 +17,7 @@ public class ReservationServiceImpl implements ReservationService{
     private ReservationMapper reservationMapper;
     @Autowired
     private timeTableMapper timeTableMapper;
+
     // 预约
     public void addReservation(reservation reservation) {
         reservationMapper.insertReservation(reservation);
@@ -45,6 +47,16 @@ public class ReservationServiceImpl implements ReservationService{
     @Override
     public void deleteReservationByCID(Integer CID) {
         reservationMapper.deleteReservationByCID(CID);
+    }
+
+    @Override
+    public List<Reservecheck> getUserReservations(String ID) {
+        return reservationMapper.getUserReservations(ID);
+    }
+
+    @Override
+    public void deleteReservation(reservation reservation) {
+        reservationMapper.deleteReservation(reservation);
     }
 
 }

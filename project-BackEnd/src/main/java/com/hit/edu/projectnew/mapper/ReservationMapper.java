@@ -1,5 +1,6 @@
 package com.hit.edu.projectnew.mapper;
 
+import com.hit.edu.projectnew.dto.Reservecheck;
 import com.hit.edu.projectnew.pojo.checklist;
 import com.hit.edu.projectnew.pojo.reservation;
 import org.apache.ibatis.annotations.Delete;
@@ -30,4 +31,12 @@ public interface ReservationMapper {
 
     @Delete("DELETE FROM reservation WHERE CID = #{CID} AND occuStatus = 2")
     void deleteReservationByCID(Integer CID);
+
+    @Select("SELECT r.CID AS CID, r.occuStatus AS occuStatus ,r.occuTime AS occuTime, r.reservations AS reservations, r.reason AS reason, r.dateTime AS dateTime, r.type AS type, c.checkStatus AS checkStatus FROM reservation r " +
+        "JOIN checklist c ON r.CID = c.CID AND r.dateTime = c.dateTime AND r.occuTime = c.occuTime AND r.reservations = c.reservations " +
+        "WHERE r.reservations = #{ID}")
+    List<Reservecheck> getUserReservations(String ID);
+
+    @Delete("DELETE FROM reservation WHERE CID=#{CID} and occuTime=#{occuTime} and dateTime=#{dateTime} and reservations=#{reservations} ")
+    void deleteReservation(reservation reservation);
 }
