@@ -1,0 +1,41 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\Vic\\.ohos\\config\\auto_debug_project-FrontEnd_com.example.myapplication_2850086000498976676.cer",
+          "storePassword": "0000001BA3553731147601FCDB46C51A61E2F21AF5A8BE2FFEFD0FDB9C867AD4D29F22DC6AE6BF15EB0F0C",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001BC3E7DB7ED419AEDA1628AB5CBDA1E5F258A348EF81F0181743094032C7AB200971BD347EC8F398",
+          "profile": "C:\\Users\\Vic\\.ohos\\config\\auto_debug_project-FrontEnd_com.example.myapplication_2850086000498976676.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\Vic\\.ohos\\config\\auto_debug_project-FrontEnd_com.example.myapplication_2850086000498976676.p12"
+        }
+      }
+    ],
+    "compileSdkVersion": 9,
+    "compatibleSdkVersion": 9,
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

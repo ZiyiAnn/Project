@@ -1,0 +1,5 @@
+package com.hit.edu.projectnew.service;
+
+public interface EmailService {
+  public void sendSimpleMessage(String to, String subject, String text);
+}

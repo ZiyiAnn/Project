@@ -1,0 +1,74 @@
+import router from '@ohos.router';
+import { CommonConstants } from '../common/constants/CommonConstants';
+
+/**
+ * Page shows registration successful.
+ */
+@Entry
+@Component
+
+struct ApponitmentSuccessPage {
+
+  @State userid:string="";
+
+  aboutToAppear() {
+    let id = router.getParams()['id'] as string;
+    this.userid=id;
+  }
+
+  build() {
+    Column() {
+      this.Title()
+
+      Scroll() {
+        Column() {
+          Image($r("app.media.ic_registration_success"))
+            .objectFit(ImageFit.Contain)
+            .width($r('app.float.registration_success_logo_width'))
+            .height($r('app.float.registration_success_logo_height'))
+
+          Text($r('app.string.appointment_success_text'))
+            .width($r('app.float.register_success_text_width'))
+            .height($r('app.float.register_success_text_height'))
+            .textAlign(TextAlign.Center)
+            .fontSize($r('app.float.register_success_text_font_size'))
+            .fontColor($r('app.color.register_success_text_font'))
+            .margin({ top: $r('app.float.register_success_text_margin_top') })
+
+          Text($r('app.string.wait'))
+            .width($r('app.float.jump_mine_page_text_width'))
+            .height($r('app.float.jump_mine_page_text_height'))
+            .textAlign(TextAlign.Center)
+            .fontSize($r('app.float.jump_text_font_size'))
+            .fontColor($r('app.color.jump_text_font'))
+        }
+        .width(CommonConstants.REGISTRATION_PAGE_WIDTH_PERCENT)
+        .height(CommonConstants.REGISTRATION_PAGE_HEIGHT_PERCENT)
+        .justifyContent(FlexAlign.Center)
+      }
+      .layoutWeight(CommonConstants.SCROLL_LAYOUT_WEIGHT)
+    }
+  }
+
+  @Builder Title() {
+    Row() {
+      Image($r('app.media.ic_back'))
+        .width($r('app.float.image_size'))
+        .height($r('app.float.image_size'))
+        .margin({
+          left: $r('app.float.image_margin_left'),
+          right: $r('app.float.image_margin_right')
+        })
+        .onClick(() => {
+          router.replaceUrl({ url: 'pages/ClassroomSelectPage',params:{id: this.userid} });
+        })
+
+      Text($r('app.string.apponitmenttitle'))
+        .fontSize($r('app.float.title_text_size'))
+        .fontColor($r('app.color.title'))
+        .fontWeight(CommonConstants.TITLE_FONT_WEIGHT)
+    }
+    .width(CommonConstants.FULL_WIDTH_PERCENT)
+    .height($r('app.float.title_height'))
+  }
+}
